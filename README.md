@@ -27,7 +27,7 @@ See [Jade.php site](http://everzet.com/jade.php) & [repository](http://github.co
 
     git submodule add git://github.com/everzet/jade.php src/vendor/jade.php
 
-### Add Behat namespace to autoload
+### Add Jade.php namespace to autoload
 
     // src/autoload.php
     $loader->registerNamespaces(array(
