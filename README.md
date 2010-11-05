@@ -64,6 +64,8 @@ Write jade templates as you do with php, but suffix them with `.jade` extension:
     h2
       | Hello {{ $name }}!!!
 
+
+
     # Application/HelloBundle/Resources/views/layout.jade
     
     !!! strict
