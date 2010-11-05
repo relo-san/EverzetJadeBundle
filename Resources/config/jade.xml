@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<container xmlns="http://www.symfony-project.org/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.symfony-project.org/schema/dic/services http://www.symfony-project.org/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="jade.class">Bundle\Everzet\JadeBundle\Jade</parameter>
+        <parameter key="jade.renderer.class">Bundle\Everzet\JadeBundle\Renderer\Renderer</parameter>
+
+        <parameter key="jade.parser.class">Everzet\Jade\Parser</parameter>
+        <parameter key="jade.lexer.class">Everzet\Jade\Lexer\Lexer</parameter>
+        <parameter key="jade.dumper.class">Everzet\Jade\Dumper\PHPDumper</parameter>
+        <parameter key="jade.cache">%kernel.cache_dir%/jade</parameter>
+    </parameters>
+    <services>
+        <service id="jade.renderer" class="%jade.renderer.class%">
+            <argument type="service" id="jade" />
+            <tag name="templating.renderer" alias="jade" />
+        </service>
+
+        <service id="jade" class="%jade.class%">
+            <argument type="service">
+                <service class="%jade.parser.class%">
+                    <argument type="service">
+                        <service class="%jade.lexer.class%" />
+                    </argument>
+                </service>
+            </argument>
+            <argument type="service" id="jade.dumper" />
+            <argument>%jade.cache%</argument>
+        </service>
+
+        <service id="jade.dumper" class="%jade.dumper.class%">
+            <call method="registerVisitor">
+                <argument>tag</argument>
+                <argument type="service">
+                    <service class="Everzet\Jade\Visitor\AutotagsVisitor" />
+                </argument>
+            </call>
+            <call method="registerFilter">
+                <argument>javascript</argument>
+                <argument type="service">
+                    <service class="Everzet\Jade\Filter\JavaScriptFilter" />
+                </argument>
+            </call>
+            <call method="registerFilter">
+                <argument>cdata</argument>
+                <argument type="service">
+                    <service class="Everzet\Jade\Filter\CDATAFilter" />
+                </argument>
+            </call>
+            <call method="registerFilter">
+                <argument>php</argument>
+                <argument type="service">
+                    <service class="Everzet\Jade\Filter\PHPFilter" />
+                </argument>
+            </call>
+            <call method="registerFilter">
+                <argument>style</argument>
+                <argument type="service">
+                    <service class="Everzet\Jade\Filter\CSSFilter" />
+                </argument>
+            </call>
+        </service>
+    </services>
+</container>
