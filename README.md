@@ -14,7 +14,7 @@ See [Jade.php site](http://everzet.com/jade.php) & [repository](http://github.co
   - :cdata
   - :css
   - :javascript
-- [TextMate Bundle](http://github.com/everzet/Jade-tmbundle)
+- [TextMate Bundle](http://github.com/miksago/jade-tmbundle)
 - [VIM Plugin](http://github.com/vim-scripts/jade.vim.git)
 
 ## Installation
